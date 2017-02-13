@@ -1,0 +1,19 @@
+.hero {
+    /*background: #229170;*/
+    background-image: url('/../img/hero.jpg');
+    /*background-size: 1536px 1536px;*/
+    height: 100%;
+    width: 100%;
+    min-height: 500px;
+    position: relative;
+    text-shadow: 1px 1px 1px #0A6B4D;
+    text-align: center;
+}
+
+h1 {
+  color: white;
+}
+
+footer.page-footer, nav {
+  background-color: #1565C0;
+}
