@@ -17,8 +17,15 @@ footer.page-footer, nav {
   background-color: #1565C0;
 }
 
-.btn {
+.btn, .btn-large {
   background-color: #FF4081;
+}
+
+/*
+Change hover color to a better pink*/
+
+.btn:hover, .btn-large:hover {
+  background-color: pink;
 }
 
 .label {
