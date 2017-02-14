@@ -1,13 +1,12 @@
 .hero {
-    /*background: #229170;*/
     background-image: url('/../img/hero.jpg');
-    /*background-size: 1536px 1536px;*/
     height: 100%;
     width: 100%;
-    min-height: 500px;
+    min-height: 525px;
     position: relative;
-    text-shadow: 1px 1px 1px #0A6B4D;
+    /*text-shadow: 1px 1px 1px #1565C0;*/
     text-align: center;
+    padding-top: 8rem;
 }
 
 h1 {
@@ -16,4 +15,20 @@ h1 {
 
 footer.page-footer, nav {
   background-color: #1565C0;
+}
+
+.btn {
+  background-color: #FF4081;
+}
+
+.label {
+  color: #FF4081;
+}
+
+.material-icons {
+  vertical-align: bottom;
+}
+
+hero h1 {
+  font-weight: bold;
 }
