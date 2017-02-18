@@ -1,5 +1,5 @@
 .hero {
-    background-image: url('/../img/hero.jpg');
+    background-image: url('../img/hero.jpg');
     height: 100%;
     width: 100%;
     min-height: 525px;
@@ -38,4 +38,8 @@ Change hover color to a better pink*/
 
 hero h1 {
   font-weight: bold;
+}
+
+.icon {
+  color: #FF4081;
 }

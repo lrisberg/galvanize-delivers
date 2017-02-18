@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.js" charset="utf-8"></script>
+  <script src="js/delivers.js"></script>
   <title>Galvanize Delivers</title>
 </head>
 
@@ -30,75 +32,82 @@
 
   <div class="container">
 
-    <div class="row">
-      <div class="col l7 menu">
+    <div class="row order">
+      <div id="menuColumn" class="col l7">
         <h4>Menu</h4>
+
+        <!-- <div class="row">
+
+          <div class="col s12 m6 l6">
+            <div class="card">
+              <div class="card-image">
+                <img src="img/burgerresized.jpg">
+              </div>
+              <div class="card-content">
+                <p class="foodname">Crispy Quinoa Burger</p>
+                <p class="price">$8.99</p>
+              </div>
+              <div class="card-action">
+                <a class="addtoorder" href="#">ADD TO ORDER</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m6 l6">
+            <div class="card">
+              <div class="card-image">
+                <img src="img/pizza.jpg">
+              </div>
+              <div class="card-content">
+                <p class="foodname">Arugula Pie</p>
+                <p class="price">$11.99</p>
+              </div>
+              <div class="card-action">
+                <a class="addtoorder" href="#">ADD TO ORDER</a>
+              </div>
+            </div>
+          </div>
+
         <div class="row">
-          <div class="col m4 l6">
+
+          <div class="col s12 m6 l6">
             <div class="card">
               <div class="card-image">
-                <img src="/../img/burger.jpg">
-                <!-- <span class="card-title">Card Title</span> -->
+                <img src="img/TofuRibsresized.jpg">
               </div>
               <div class="card-content">
-                <p>The Beast Burger</p>
-                <p>$8.99</p>
+                <p class="foodname">BBQ Tofu Ribs</p>
+                <p class="price">$14.99</p>
               </div>
               <div class="card-action">
-                <a href="#">ADD TO ORDER</a>
+                <a class="addtoorder" href="#">ADD TO ORDER</a>
               </div>
             </div>
           </div>
 
-          <div class="col m4 l6">
+          <div class="col s12 m6 l6">
             <div class="card">
               <div class="card-image">
-                <img src="/../img/pizza.jpg">
-                <!-- <span class="card-title">Card Title</span> -->
+                <img src="img/nicecream.jpg">
               </div>
               <div class="card-content">
-                <p>Arugula Pie</p>
-                <p>$11.99
+                <p class="foodname">Nice Cream Sandwich</p>
+                <p class="price">$7.99</p>
               </div>
               <div class="card-action">
-                <a href="#">ADD TO ORDER</a>
+                <a class="addtoorder" href="#">ADD TO ORDER</a>
               </div>
             </div>
           </div>
-          <div class="col m4 l6">
-            <div class="card">
-              <div class="card-image">
-                <img src="/../img/ribs.jpg">
-                <!-- <span class="card-title">Card Title</span> -->
-              </div>
-              <div class="card-content">
-                <p>Smoked Tempeh</p>
-                <p>$14.99</p>
-              </div>
-              <div class="card-action">
-                <a href="#">ADD TO ORDER</a>
-              </div>
-            </div>
-          </div>
-          <div class="col m4 l6">
-            <div class="card">
-              <div class="card-image">
-                <img src="/../img/ice_cream.jpg">
-                <!-- <span class="card-title">Card Title</span> -->
-              </div>
-              <div class="card-content">
-                <p>Cashew Ice Cream Sandwich</p>
-                <p>$7.99</p>
-              </div>
-              <div class="card-action">
-                <a href="#">ADD TO ORDER</a>
-              </div>
-            </div>
-          </div>
+
         </div>
-      </div>
 
-      <div class="col l5">
+      </div> -->
+
+    </div>
+
+      <div class="col s12 m5 l5">
+
         <h4>Order</h4>
 
         <table class="striped">
@@ -109,9 +118,9 @@
             </tr>
           </thead>
 
-          <tbody>
-            <tr>
-              <td>Tofu Steak</td>
+          <tbody id="tbody">
+            <!-- <tr>
+              <td>Crispy Quinoa Burger</td>
               <td>$8.99</td>
             </tr>
             <tr>
@@ -119,17 +128,18 @@
               <td>$11.99</td>
             </tr>
             <tr>
-              <td>Smoked Tempeh</td>
+              <td>BBQ Tofu Ribs</td>
               <td>$14.99</td>
-            </tr>
+            </tr> -->
           </tbody>
+
         </table>
 
 
 
         <div class="row">
           <div class="input-field col s12">
-            <i class="material-icons prefix">mode_edit</i>
+            <i class="material-icons prefix icon">person</i>
             <input id="name" type="text" class="validate">
             <label for="icon_prefix2">Name</label>
           </div>
@@ -137,7 +147,7 @@
 
         <div class="row">
           <div class="input-field col s12">
-            <i class="material-icons prefix">mode_edit</i>
+            <i class="material-icons prefix icon">phone</i>
             <input id="phone_number" type="text" class="validate">
             <label for="icon_prefix2">Phone Number</label>
           </div>
@@ -145,7 +155,7 @@
 
         <div class="row">
           <div class="input-field col s12">
-            <i class="material-icons prefix">mode_edit</i>
+            <i class="material-icons prefix icon">location_city</i>
             <textarea id="address" class="materialize-textarea"></textarea>
             <label for="icon_prefix2">Address</label>
           </div>
