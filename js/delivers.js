@@ -18,49 +18,34 @@ $(document).ready(function() {
 
     // create a single menu card
   function createFoodCard(foodName, foodPrice, foodImageURL) {
-    let column = $('<div class="col s12 m6 l6">');
+    let column = $('<div>').addClass('col s12 m6 l6');
 
-    let card = $('<div class="card">');
-
+    let card = $('<div>').addClass('card').data('foodName', foodName).data('foodPrice', foodPrice);
     column.append(card);
 
-    let cardImage = $('<div class="card-image">');
-
+    let cardImage = $('<div>').addClass('card-image');
     card.append(cardImage);
 
-    let img = $(`<img src=${foodImageURL}>`);
-
-    cardImage.append(img);
-
-    let cardContent = $('<div class="card-content">');
-
+    cardImage.append($(`<img src=${foodImageURL}>`));
+    let cardContent = $('<div>').addClass('card-content');
     card.append(cardContent);
 
-    let pLabel = $('<p>').addClass('foodname').text(foodName);
-
-    cardContent.append(pLabel);
-
-    let pPrice = $('<p>').addClass('foodprice').text(foodPrice);
-
-    cardContent.append(pPrice);
+    cardContent.append($('<p>').addClass('foodname').text(foodName));
+    cardContent.append($('<p>').addClass('foodprice').text(`\$${foodPrice}`));
 
     let cardAction = $('<div class="card-action">');
-
     card.append(cardAction);
+    cardAction.append($('<a>').addClass("addtoorder").text("ADD TO ORDER"));
 
-    let orderButton = $('<a>').addClass("addtoorder").text("ADD TO ORDER");
-
-    cardAction.append(orderButton);
-
-    return column[0]
+    return column[0];
   }
 
 
   function createMenuGrid(menuItemsObject, menuColumnElement) {
-    for (let foodName in menuItems) {
-      let row = $('<row>');
+    let row = $('<div>').addClass('row');
+    menuColumnElement.append(row);
 
-      menuColumnElement.append(row);
+    for (let foodName in menuItems) {
       let foodPrice = menuItemsObject[foodName][0];
       let foodImageURL = menuItemsObject[foodName][1];
       let card = createFoodCard(foodName, foodPrice, foodImageURL);
@@ -71,7 +56,8 @@ $(document).ready(function() {
 
   createMenuGrid(menuItems, menuColumn);
 
-  let tbody = $('#tbody')
+  let tbody = $('#tbody');
+  let table = $('#table');
 
   function createTableRow(tbodyElement, foodName, foodPrice) {
     let tr = $('<tr>');
@@ -81,33 +67,72 @@ $(document).ready(function() {
 
     tr.append(td);
     td.text(foodName);
-    td = $('<td>');
-    td.text(foodPrice);
+    td = $('<td>').addClass('right-align value');
+    td.text(`\$${foodPrice}`);
     tr.append(td);
   }
 
-  createTableRow(tbody, 'Crispy Quinoa Burgers', 8.99);
-  createTableRow(tbody, 'Nice Cream', 7.99);
+  function calculateSubtotal(tableElement) {
+    let values = $(tableElement).find('.value');
+    let valuesArray = values.toArray();
+    let total = 0;
+    for (let value of valuesArray) {
+      let price = $(value).text();
+      price = parseFloat(price.substring(1));
+      total += price;
+    }
+
+    return `\$${total.toFixed(2)}`;
+  }
+
+  function createTfoot(table) {
+    let tfoot = $('<tfoot>').addClass("tfoot");
+    table.append(tfoot);
+  }
+
+  function createSubTotal(tableElement, tfootElement) {
+    let subTotalTr = $('<tr>');
+    tfootElement.append(subTotalTr);
+    subTotalTr.append($('<td>').text("Subtotal"));
+    let subTotalAmount = '$0';
+    let subTotalTd = $('<td>').addClass('subtotalamount').text(subTotalAmount);
+    subTotalTr.append(subTotalTd);
+  }
+
+  createTfoot(table);
+  createSubTotal(table, $('.tfoot'));
+
+  function updateTax(tfootElement, taxAmount) {
+    let taxTr = $('<tr>');
+    tfootElement.append(taxTr);
+    let taxTd = $('<td>').text("Tax");
+    taxTr.append(taxTd);
+    let taxAmountTd = $('<td>').text(taxAmount);
+  }
+
+  function updateTotal(tfootElement, subTotal, taxAmount, totalAmount) {
+    let totalTr = $('<tr>');
+    tfootElement.append(totalTr);
+    let totalTd = $('<td>').text("Total");
+    totalTr.append(totalTd);
+    let totalAmountTd = $('<td>').text(totalAmount);
+    totalTr.append(totalAmountTd);
+  }
+
+
 
   // ---EVENTS---
 
   $(".order").click(function(event) {
     let target = event.target;
     if (target.className === "addtoorder") {
-      console.log("You clicked an order button");
+      let card = $(target).parents('.card');
+      let foodName = card.data('foodName');
+      let foodPrice = card.data('foodPrice');
 
-      let card = $(target).parents().parents();
-      let cardContent = $(card).children(".card-content");
-      let foodName = $(cardContent).children(".foodname").text();
-      let foodPrice = $(cardContent).children(".foodprice").text();
-      //let foodCost = foodPrice.text()
-      //console.log(foodCost);
-      //let foodPrice = $(target).parents();
-      //console.log(foodPrice[0]);
       createTableRow(tbody, foodName, foodPrice);
-
-      // add a row to the table with the foodname and price
-      // update the totaling of the monies
+      let subtotal = $(table).find('.subtotalamount');
+      $(subtotal).text(calculateSubtotal(table));
     }
   })
 });
