@@ -1,5 +1,5 @@
 $(document).ready(function() {
-// ---DECLARATION--- //
+  // ---DECLARATION--- //
 
   let menuItems = {
     'Crispy Quinoa Burger':
@@ -13,10 +13,13 @@ $(document).ready(function() {
   }
 
   let menuColumn = $('#menuColumn');
+  let tbody = $('#tbody');
+  let table = $('#table');
+  let taxRate = 0.08
 
   // ---FUNCTIONS--- //
 
-    // create a single menu card
+  // create a single menu card
   function createFoodCard(foodName, foodPrice, foodImageURL) {
     let column = $('<div>').addClass('col s12 m6 l6');
 
@@ -54,11 +57,6 @@ $(document).ready(function() {
     }
   }
 
-  createMenuGrid(menuItems, menuColumn);
-
-  let tbody = $('#tbody');
-  let table = $('#table');
-
   function createTableRow(tbodyElement, foodName, foodPrice) {
     let tr = $('<tr>');
 
@@ -70,6 +68,20 @@ $(document).ready(function() {
     td = $('<td>').addClass('right-align value');
     td.text(`\$${foodPrice}`);
     tr.append(td);
+  }
+
+  function createTfoot() {
+    let tfoot = $('<tfoot>').addClass("tfoot");
+    table.append(tfoot);
+  }
+
+  function createSubTotalRow(tableElement, tfootElement) {
+    let subTotalTr = $('<tr>');
+    tfootElement.append(subTotalTr);
+    subTotalTr.append($('<td>').text("Subtotal"));
+    let subTotalAmount = '$0';
+    let subTotalTd = $('<td>').addClass('subtotalamount').text(subTotalAmount);
+    subTotalTr.append(subTotalTd);
   }
 
   function calculateSubtotal(tableElement) {
@@ -85,39 +97,33 @@ $(document).ready(function() {
     return `\$${total.toFixed(2)}`;
   }
 
-  function createTfoot(table) {
-    let tfoot = $('<tfoot>').addClass("tfoot");
-    table.append(tfoot);
-  }
-
-  function createSubTotal(tableElement, tfootElement) {
-    let subTotalTr = $('<tr>');
-    tfootElement.append(subTotalTr);
-    subTotalTr.append($('<td>').text("Subtotal"));
-    let subTotalAmount = '$0';
-    let subTotalTd = $('<td>').addClass('subtotalamount').text(subTotalAmount);
-    subTotalTr.append(subTotalTd);
-  }
-
-  createTfoot(table);
-  createSubTotal(table, $('.tfoot'));
-
-  function updateTax(tfootElement, taxAmount) {
+  function createTaxRow(tableElement, tfootElement) {
     let taxTr = $('<tr>');
     tfootElement.append(taxTr);
-    let taxTd = $('<td>').text("Tax");
+    taxTr.append($('<td>').text("Tax"));
+    let taxAmount = '$0';
+    let taxTd = $('<td>').addClass('taxamount').text(taxAmount);
     taxTr.append(taxTd);
-    let taxAmountTd = $('<td>').text(taxAmount);
   }
 
-  function updateTotal(tfootElement, subTotal, taxAmount, totalAmount) {
-    let totalTr = $('<tr>');
-    tfootElement.append(totalTr);
-    let totalTd = $('<td>').text("Total");
-    totalTr.append(totalTd);
-    let totalAmountTd = $('<td>').text(totalAmount);
-    totalTr.append(totalAmountTd);
+  function calculateTax(tableElement) {
+    let subtotal = $(table).find('.subtotalamount').text();
+    subtotal = parseFloat(subtotal.substring(1));
+    let taxAmount = subtotal * taxRate;
+
+    console.log(taxAmount.toFixed(2));
+
+    return `\$${taxAmount.toFixed(2)}`;
   }
+
+
+
+  // ---CREATION--- //
+
+  createMenuGrid(menuItems, menuColumn);
+  createTfoot(table);
+  createSubTotalRow(table, $('.tfoot'));
+  createTaxRow(table, $('.tfoot'));
 
 
 
@@ -131,8 +137,12 @@ $(document).ready(function() {
       let foodPrice = card.data('foodPrice');
 
       createTableRow(tbody, foodName, foodPrice);
+
       let subtotal = $(table).find('.subtotalamount');
       $(subtotal).text(calculateSubtotal(table));
+
+      let taxAmount = $(table).find('.taxamount');
+      $(taxAmount).text(calculateTax(table));
     }
   })
 });
