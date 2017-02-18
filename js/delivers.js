@@ -79,8 +79,7 @@ $(document).ready(function() {
     let subTotalTr = $('<tr>');
     tfootElement.append(subTotalTr);
     subTotalTr.append($('<td>').text("Subtotal"));
-    let subTotalAmount = '$0';
-    let subTotalTd = $('<td>').addClass('subtotalamount').text(subTotalAmount);
+    let subTotalTd = $('<td>').addClass('subtotalamount').text('$0');
     subTotalTr.append(subTotalTd);
   }
 
@@ -101,8 +100,7 @@ $(document).ready(function() {
     let taxTr = $('<tr>');
     tfootElement.append(taxTr);
     taxTr.append($('<td>').text("Tax"));
-    let taxAmount = '$0';
-    let taxTd = $('<td>').addClass('taxamount').text(taxAmount);
+    let taxTd = $('<td>').addClass('taxamount').text('$0');
     taxTr.append(taxTd);
   }
 
@@ -111,12 +109,28 @@ $(document).ready(function() {
     subtotal = parseFloat(subtotal.substring(1));
     let taxAmount = subtotal * taxRate;
 
-    console.log(taxAmount.toFixed(2));
-
     return `\$${taxAmount.toFixed(2)}`;
   }
 
+  function createTotalRow(tableElement, tfootElement) {
+    let totalTr = $('<tr>');
+    tfootElement.append(totalTr);
+    totalTr.append($('<td>').text("Total"));
+    let totalTd = $('<td>').addClass('totalamount').text('$0');
+    totalTr.append(totalTd);
+  }
 
+  function calculateTotal(tableElement) {
+    let subtotalAmount = $(table).find('.subtotalamount').text();
+    subtotalAmount = parseFloat(subtotalAmount.substring(1));
+
+    let taxAmount = $(table).find('.taxamount').text();
+    taxAmount = parseFloat(taxAmount.substring(1));
+
+    let totalAmount = subtotalAmount + taxAmount;
+
+    return totalAmount;
+  }
 
   // ---CREATION--- //
 
@@ -124,6 +138,7 @@ $(document).ready(function() {
   createTfoot(table);
   createSubTotalRow(table, $('.tfoot'));
   createTaxRow(table, $('.tfoot'));
+  createTotalRow(table, $('.tfoot'));
 
 
 
@@ -138,11 +153,14 @@ $(document).ready(function() {
 
       createTableRow(tbody, foodName, foodPrice);
 
-      let subtotal = $(table).find('.subtotalamount');
-      $(subtotal).text(calculateSubtotal(table));
+      let subtotalAmount = $(table).find('.subtotalamount');
+      $(subtotalAmount).text(calculateSubtotal(table));
 
       let taxAmount = $(table).find('.taxamount');
       $(taxAmount).text(calculateTax(table));
+
+      let totalAmount = $(table).find('.totalamount');
+      $(totalAmount).text(calculateTotal(table));
     }
   })
 });
