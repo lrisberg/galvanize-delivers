@@ -83,7 +83,7 @@ $(document).ready(function() {
   function createTfootRow(rowName, rowClass) {
     let tr = $('<tr>')
       .append($('<td>').text(rowName))
-      .append($('<td>').addClass(rowClass).text(toDollaDolla(0)));
+      .append($('<td>').addClass(rowClass));
     $('.tfoot').append(tr);
   }
 
@@ -108,6 +108,12 @@ $(document).ready(function() {
     return subtotal + tax;
   }
 
+  function updateDisplayTotals(subtotal, tax, total) {
+    $(table).find('.subtotalamount').text(toDollaDolla(subtotal));
+    $(table).find('.taxamount').text(toDollaDolla(tax));
+    $(table).find('.totalamount').text(toDollaDolla(total));
+  }
+
   // ---CREATION--- //
 
   createMenuGrid(menuItems, menuColumn);
@@ -116,6 +122,8 @@ $(document).ready(function() {
   createTfootRow('Subtotal', 'subtotalamount');
   createTfootRow('Tax', 'taxamount');
   createTfootRow('Total', 'totalamount');
+
+  updateDisplayTotals(0, 0, 0);
 
   // ---EVENTS--- //
 
@@ -132,11 +140,7 @@ $(document).ready(function() {
       let tax = calculateTax(subtotal);
       let total = calculateTotal(subtotal, tax);
 
-      $(table).find('.subtotalamount').text(toDollaDolla(subtotal));
-
-      $(table).find('.taxamount').text(toDollaDolla(tax));
-
-      $(table).find('.totalamount').text(toDollaDolla(total));
+      updateDisplayTotals(subtotal, tax, total);
     }
   })
 
