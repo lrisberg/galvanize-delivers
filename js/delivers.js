@@ -57,40 +57,35 @@ $(document).ready(function() {
     for (let foodName in menuItems) {
       let foodPrice = menuItems[foodName][0];
       let foodImageURL = menuItems[foodName][1];
-      let card = createFoodCard(foodName, foodPrice, foodImageURL);
 
-      row.append(card);
+      row.append(createFoodCard(foodName, foodPrice, foodImageURL));
     }
   }
 
   function createOrderItem(foodName, foodPrice) {
-    let tr = $('<tr>');
+    let item = $('<tr>').addClass('order-item');
+    tbody.append(item);
 
-    tbody.append(tr);
-    let td = $('<td>');
+    item.append($('<td>').text(foodName));
 
-    tr.append(td);
-    td.text(foodName);
-    td = $('<td>').addClass('right-align value');
-    td.text(`\$${foodPrice}`);
-    tr.append(td);
+    let priceElem = $('<td>').addClass('right-align price')
+      .text(toDollaDolla(foodPrice));
+    item.append(priceElem);
   }
 
   function createTotalRow(rowName, rowClass) {
-    let tr = $('<tr>')
+    let totalRow = $('<tr>')
       .append($('<td>').text(rowName))
       .append($('<td>').addClass(rowClass));
-    $('.order-totals').append(tr);
+    $('.order-totals').append(totalRow);
   }
 
   function calculateSubtotal() {
-    let values = $(table).find('.value');
-    let valuesArray = values.toArray();
+    let pricesArray = $('.price').toArray();
     let subtotalAmount = 0;
-    for (let value of valuesArray) {
-      let price = $(value).text();
-      price = parseFloat(price.substring(1));
-      subtotalAmount += price;
+    for (let price of pricesArray) {
+      let priceAmount = parseFloat($(price).text().substring(1));
+      subtotalAmount += priceAmount;
     }
 
     return subtotalAmount;
@@ -105,9 +100,9 @@ $(document).ready(function() {
   }
 
   function updateDisplayTotals(subtotal, tax, total) {
-    $(table).find('.subtotal-amount').text(toDollaDolla(subtotal));
-    $(table).find('.tax-amount').text(toDollaDolla(tax));
-    $(table).find('.total-amount').text(toDollaDolla(total));
+    $('.subtotal-amount').text(toDollaDolla(subtotal));
+    $('.tax-amount').text(toDollaDolla(tax));
+    $('.total-amount').text(toDollaDolla(total));
   }
 
   // ---CREATION--- //
@@ -142,11 +137,8 @@ $(document).ready(function() {
   // click function for submit button
   $(".placeorder").click(function(event) {
     let target = event.target;
-    console.log("You clicked the submit button")
-
-    let tds = $(tbody).find('td');
-    console.log(tds.length);
-    if (tds.length > 0 && $('#name').val() !== "" && $('#phone_number').val() !== "" && $('#address').val() !== "") {
+    let orderItems = $('.order-item');
+    if (orderItems.length > 0 && $('#name').val() !== "" && $('#phone_number').val() !== "" && $('#address').val() !== "") {
       Materialize.toast('Success!', 4000);
     }
     else {
