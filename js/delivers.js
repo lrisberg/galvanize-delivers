@@ -100,12 +100,12 @@ $(document).ready(function() {
     return subtotalAmount;
   }
 
-  function calculateTax() {
-    return calculateSubtotal() * taxRate;
+  function calculateTax(subtotal) {
+    return subtotal * taxRate;
   }
 
-  function calculateTotal() {
-    return calculateSubtotal() + calculateTax();
+  function calculateTotal(subtotal, tax) {
+    return subtotal + tax;
   }
 
   // ---CREATION--- //
@@ -128,14 +128,15 @@ $(document).ready(function() {
 
       createTableRow(tbody, foodName, foodPrice);
 
-      let subtotalAmount = $(table).find('.subtotalamount');
-      $(subtotalAmount).text(toDollaDolla(calculateSubtotal()));
+      let subtotal = calculateSubtotal();
+      let tax = calculateTax(subtotal);
+      let total = calculateTotal(subtotal, tax);
 
-      let taxAmount = $(table).find('.taxamount');
-      $(taxAmount).text(toDollaDolla(calculateTax()));
+      $(table).find('.subtotalamount').text(toDollaDolla(subtotal));
 
-      let totalAmount = $(table).find('.totalamount');
-      $(totalAmount).text(toDollaDolla(calculateTotal()));
+      $(table).find('.taxamount').text(toDollaDolla(tax));
+
+      $(table).find('.totalamount').text(toDollaDolla(total));
     }
   })
 
