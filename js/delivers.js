@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  let Materialize = window.Materialize;
+
   // ---INITIALIZATION--- //
 
   let menuItems = {
@@ -8,7 +10,7 @@ $(document).ready(function() {
       [11.99, 'img/pizza.jpg'],
     'BBQ Tofu Ribs':
       [14.99, 'img/TofuRibsresized.jpg'],
-    'Nice Cream Bisquit':
+    'Nice Cream Biscuit':
       [7.99, 'img/nicecream.jpg']
   }
 
@@ -82,6 +84,22 @@ $(document).ready(function() {
     subTotalTr.append(subTotalTd);
   }
 
+  function createTaxRow(tfootElement) {
+    let taxTr = $('<tr>');
+    tfootElement.append(taxTr);
+    taxTr.append($('<td>').text("Tax"));
+    let taxTd = $('<td>').addClass('taxamount').text('$0');
+    taxTr.append(taxTd);
+  }
+
+  function createTotalRow(tfootElement) {
+    let totalTr = $('<tr>');
+    tfootElement.append(totalTr);
+    totalTr.append($('<td>').text("Total"));
+    let totalTd = $('<td>').addClass('totalamount').text('$0');
+    totalTr.append(totalTd);
+  }
+
   function calculateSubtotal() {
     let values = $(table).find('.value');
     let valuesArray = values.toArray();
@@ -95,28 +113,12 @@ $(document).ready(function() {
     return `\$${total.toFixed(2)}`;
   }
 
-  function createTaxRow(tfootElement) {
-    let taxTr = $('<tr>');
-    tfootElement.append(taxTr);
-    taxTr.append($('<td>').text("Tax"));
-    let taxTd = $('<td>').addClass('taxamount').text('$0');
-    taxTr.append(taxTd);
-  }
-
   function calculateTax() {
     let subtotal = $(table).find('.subtotalamount').text();
     subtotal = parseFloat(subtotal.substring(1));
     let taxAmount = subtotal * taxRate;
 
     return `\$${taxAmount.toFixed(2)}`;
-  }
-
-  function createTotalRow(tfootElement) {
-    let totalTr = $('<tr>');
-    tfootElement.append(totalTr);
-    totalTr.append($('<td>').text("Total"));
-    let totalTd = $('<td>').addClass('totalamount').text('$0');
-    totalTr.append(totalTd);
   }
 
   function calculateTotal() {
@@ -140,9 +142,7 @@ $(document).ready(function() {
   createTaxRow($('.tfoot'));
   createTotalRow($('.tfoot'));
 
-
-
-  // ---EVENTS---
+  // ---EVENTS--- //
 
   $(".order").click(function(event) {
     let target = event.target;
@@ -164,12 +164,6 @@ $(document).ready(function() {
     }
   })
 
-  // toggle active on nav bar list item
-  $("nav").click(function(event) {
-    let target = event.target;
-    console.log("You clicked the nav bar");
-  })
-
   // click function for submit button
   $(".placeorder").click(function(event) {
     let target = event.target;
@@ -183,14 +177,5 @@ $(document).ready(function() {
     else {
       Materialize.toast('Please complete order details', 4000);
     }
-
-
-
-
-    // else
-    // Materialize.toast('Please complete order details', 4000);
   })
-
-
-
 });
