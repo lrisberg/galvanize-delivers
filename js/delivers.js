@@ -21,6 +21,10 @@ $(document).ready(function() {
 
   // ---FUNCTIONS--- //
 
+  function toDollaDolla(number) {
+    return `\$${number.toFixed(2)}`;
+  }
+
   // create a single menu card
   function createFoodCard(foodName, foodPrice, foodImageURL) {
     let column = $('<div>').addClass('col s12 m6 l6');
@@ -79,21 +83,21 @@ $(document).ready(function() {
   function createTfootRow(rowName, rowClass) {
     let tr = $('<tr>')
       .append($('<td>').text(rowName))
-      .append($('<td>').addClass(rowClass).text('$0'));
+      .append($('<td>').addClass(rowClass).text(toDollaDolla(0)));
     $('.tfoot').append(tr);
   }
 
   function calculateSubtotal() {
     let values = $(table).find('.value');
     let valuesArray = values.toArray();
-    let total = 0;
+    let totalAmount = 0;
     for (let value of valuesArray) {
       let price = $(value).text();
       price = parseFloat(price.substring(1));
-      total += price;
+      totalAmount += price;
     }
 
-    return `\$${total.toFixed(2)}`;
+    return toDollaDolla(totalAmount);
   }
 
   function calculateTax() {
@@ -101,7 +105,7 @@ $(document).ready(function() {
     subtotal = parseFloat(subtotal.substring(1));
     let taxAmount = subtotal * taxRate;
 
-    return `\$${taxAmount.toFixed(2)}`;
+    return toDollaDolla(taxAmount);
   }
 
   function calculateTotal() {
@@ -113,7 +117,7 @@ $(document).ready(function() {
 
     let totalAmount = subtotalAmount + taxAmount;
 
-    return `\$${totalAmount.toFixed(2)}`;
+    return toDollaDolla(totalAmount);
   }
 
   // ---CREATION--- //
