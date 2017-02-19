@@ -43,3 +43,7 @@ hero h1 {
 .icon {
   color: #FF4081;
 }
+
+.price, .tax-amount, .subtotal-amount, .total-amount {
+  width: 75px;
+}

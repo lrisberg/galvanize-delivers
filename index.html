@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
   <script src="https://code.jquery.com/jquery-3.1.1.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
   <script src="js/delivers.js"></script>
   <title>Galvanize Delivers</title>
 </head>
@@ -20,14 +21,18 @@
 
           <div class="nav-wrapper container">
             <a href="index.html" class="brand-logo">Galvanize Delivers</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
               <li><a href="order.html">Order Delivery</a></li>
             </ul>
+            <ul class="side-nav" id="mobile-demo">
+              <li><a href="order.html">Order</a></li>
+            </ul>
           </div>
+
+        </nav>
+
       </div>
-      </nav>
-
-
 
     </header>
 

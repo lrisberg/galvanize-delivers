@@ -1,7 +1,10 @@
 $(document).ready(function() {
   let Materialize = window.Materialize;
+  $(".button-collapse").sideNav();
 
   // ---INITIALIZATION--- //
+
+  let taxRate = 0.08;
 
   let menuItems = {
     'Crispy Quinoa Burger':
@@ -13,8 +16,6 @@ $(document).ready(function() {
     'Nice Cream Biscuit':
       [7.99, 'img/nicecream.jpg']
   }
-
-  let taxRate = 0.08;
 
   // ---FUNCTIONS--- //
 
@@ -71,8 +72,8 @@ $(document).ready(function() {
 
   function createTotalRow(rowName, rowClass) {
     let totalRow = $('<tr>')
-      .append($('<td>').text(rowName))
-      .append($('<td>').addClass(rowClass));
+      .append($('<td>').text(rowName).addClass("right-align"))
+      .append($('<td>').addClass(rowClass).addClass("right-align"));
     $('.order-totals').append(totalRow);
   }
 

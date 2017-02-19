@@ -4,10 +4,10 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/materialize.css">
-  <link rel="stylesheet" href="css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
   <script src="https://code.jquery.com/jquery-3.1.1.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
   <script src="js/delivers.js"></script>
   <title>Galvanize Delivers</title>
 </head>
@@ -22,8 +22,12 @@
       <nav>
         <div class="nav-wrapper container">
           <a href="index.html" class="brand-logo">Galvanize Delivers</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul class="right hide-on-med-and-down">
             <li class="active"><a href="order.html">Order Delivery</a></li>
+          </ul>
+          <ul class="side-nav" id="mobile-demo">
+            <li class="active"><a href="order.html">Order</a></li>
           </ul>
         </div>
       </nav>
@@ -35,8 +39,8 @@
     <div class="row order">
       <div class="menu col l7">
         <h4>Menu</h4>
-<!--- menu cards in here --->
-    </div>
+        <!--- menu cards in here --->
+      </div>
 
       <div class="col s12 m5 l5">
 
@@ -46,7 +50,7 @@
           <thead>
             <tr>
               <th data-field="id">Item</th>
-              <th data-field="name">Price</th>
+              <th class="right-align" data-field="name">Price</th>
             </tr>
           </thead>
 
@@ -86,8 +90,8 @@
         </div>
 
         <div class="center-align">
-        <a class="waves-effect waves-light btn-large placeorder">PLACE ORDER</a>
-      </div>
+          <a class="waves-effect waves-light btn-large placeorder">PLACE ORDER</a>
+        </div>
 
 
       </div>
@@ -125,8 +129,7 @@
   </footer>
 
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script>
+
 </body>
 
 </html>
