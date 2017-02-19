@@ -97,7 +97,7 @@ $(document).ready(function() {
       totalAmount += price;
     }
 
-    return toDollaDolla(totalAmount);
+    return totalAmount;
   }
 
   function calculateTax() {
@@ -105,7 +105,7 @@ $(document).ready(function() {
     subtotal = parseFloat(subtotal.substring(1));
     let taxAmount = subtotal * taxRate;
 
-    return toDollaDolla(taxAmount);
+    return taxAmount;
   }
 
   function calculateTotal() {
@@ -117,7 +117,7 @@ $(document).ready(function() {
 
     let totalAmount = subtotalAmount + taxAmount;
 
-    return toDollaDolla(totalAmount);
+    return totalAmount;
   }
 
   // ---CREATION--- //
@@ -141,13 +141,13 @@ $(document).ready(function() {
       createTableRow(tbody, foodName, foodPrice);
 
       let subtotalAmount = $(table).find('.subtotalamount');
-      $(subtotalAmount).text(calculateSubtotal(table));
+      $(subtotalAmount).text(toDollaDolla(calculateSubtotal()));
 
       let taxAmount = $(table).find('.taxamount');
-      $(taxAmount).text(calculateTax(table));
+      $(taxAmount).text(toDollaDolla(calculateTax()));
 
       let totalAmount = $(table).find('.totalamount');
-      $(totalAmount).text(calculateTotal(table));
+      $(totalAmount).text(toDollaDolla(calculateTotal()));
     }
   })
 
