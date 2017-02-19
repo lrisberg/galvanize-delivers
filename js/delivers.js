@@ -111,7 +111,7 @@ $(document).ready(function() {
 
   // ---CREATION--- //
 
-  createMenuGrid(menuItems, menuColumn);
+  createMenuGrid();
 
   createTotalRow('Subtotal', 'subtotalamount');
   createTotalRow('Tax', 'taxamount');
