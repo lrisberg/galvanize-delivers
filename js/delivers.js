@@ -90,34 +90,22 @@ $(document).ready(function() {
   function calculateSubtotal() {
     let values = $(table).find('.value');
     let valuesArray = values.toArray();
-    let totalAmount = 0;
+    let subtotalAmount = 0;
     for (let value of valuesArray) {
       let price = $(value).text();
       price = parseFloat(price.substring(1));
-      totalAmount += price;
+      subtotalAmount += price;
     }
 
-    return totalAmount;
+    return subtotalAmount;
   }
 
   function calculateTax() {
-    let subtotal = $(table).find('.subtotalamount').text();
-    subtotal = parseFloat(subtotal.substring(1));
-    let taxAmount = subtotal * taxRate;
-
-    return taxAmount;
+    return calculateSubtotal() * taxRate;
   }
 
   function calculateTotal() {
-    let subtotalAmount = $(table).find('.subtotalamount').text();
-    subtotalAmount = parseFloat(subtotalAmount.substring(1));
-
-    let taxAmount = $(table).find('.taxamount').text();
-    taxAmount = parseFloat(taxAmount.substring(1));
-
-    let totalAmount = subtotalAmount + taxAmount;
-
-    return totalAmount;
+    return calculateSubtotal() + calculateTax();
   }
 
   // ---CREATION--- //
