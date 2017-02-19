@@ -14,9 +14,6 @@ $(document).ready(function() {
       [7.99, 'img/nicecream.jpg']
   }
 
-  let menuColumn = $('.menu');
-  let tbody = $('.order-items');
-  let table = $('.orders');
   let taxRate = 0.08;
 
   // ---FUNCTIONS--- //
@@ -52,7 +49,7 @@ $(document).ready(function() {
 
   function createMenuGrid() {
     let row = $('<div>').addClass('row');
-    menuColumn.append(row);
+    $('.menu').append(row);
 
     for (let foodName in menuItems) {
       let foodPrice = menuItems[foodName][0];
@@ -64,7 +61,7 @@ $(document).ready(function() {
 
   function createOrderItem(foodName, foodPrice) {
     let item = $('<tr>').addClass('order-item');
-    tbody.append(item);
+    $('.order-items').append(item);
 
     item.append($('<td>').text(foodName));
 
