@@ -14,9 +14,9 @@ $(document).ready(function() {
       [7.99, 'img/nicecream.jpg']
   }
 
-  let menuColumn = $('#menuColumn');
-  let tbody = $('#tbody');
-  let table = $('#table');
+  let menuColumn = $('.menu');
+  let tbody = $('.order-items');
+  let table = $('.orders');
   let taxRate = 0.08;
 
   // ---FUNCTIONS--- //
@@ -79,7 +79,7 @@ $(document).ready(function() {
     let tr = $('<tr>')
       .append($('<td>').text(rowName))
       .append($('<td>').addClass(rowClass));
-    $('.tfoot').append(tr);
+    $('.order-totals').append(tr);
   }
 
   function calculateSubtotal() {
@@ -104,18 +104,18 @@ $(document).ready(function() {
   }
 
   function updateDisplayTotals(subtotal, tax, total) {
-    $(table).find('.subtotalamount').text(toDollaDolla(subtotal));
-    $(table).find('.taxamount').text(toDollaDolla(tax));
-    $(table).find('.totalamount').text(toDollaDolla(total));
+    $(table).find('.subtotal-amount').text(toDollaDolla(subtotal));
+    $(table).find('.tax-amount').text(toDollaDolla(tax));
+    $(table).find('.total-amount').text(toDollaDolla(total));
   }
 
   // ---CREATION--- //
 
   createMenuGrid();
 
-  createTotalRow('Subtotal', 'subtotalamount');
-  createTotalRow('Tax', 'taxamount');
-  createTotalRow('Total', 'totalamount');
+  createTotalRow('Subtotal', 'subtotal-amount');
+  createTotalRow('Tax', 'tax-amount');
+  createTotalRow('Total', 'total-amount');
 
   updateDisplayTotals(0, 0, 0);
 
