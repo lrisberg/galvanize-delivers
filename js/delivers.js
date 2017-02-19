@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  // ---DECLARATION--- //
+  // ---INITIALIZATION--- //
 
   let menuItems = {
     'Crispy Quinoa Burger':
@@ -15,7 +15,7 @@ $(document).ready(function() {
   let menuColumn = $('#menuColumn');
   let tbody = $('#tbody');
   let table = $('#table');
-  let taxRate = 0.08
+  let taxRate = 0.08;
 
   // ---FUNCTIONS--- //
 
@@ -42,7 +42,6 @@ $(document).ready(function() {
 
     return column[0];
   }
-
 
   function createMenuGrid(menuItemsObject, menuColumnElement) {
     let row = $('<div>').addClass('row');
@@ -75,7 +74,7 @@ $(document).ready(function() {
     table.append(tfoot);
   }
 
-  function createSubTotalRow(tableElement, tfootElement) {
+  function createSubTotalRow(tfootElement) {
     let subTotalTr = $('<tr>');
     tfootElement.append(subTotalTr);
     subTotalTr.append($('<td>').text("Subtotal"));
@@ -83,8 +82,8 @@ $(document).ready(function() {
     subTotalTr.append(subTotalTd);
   }
 
-  function calculateSubtotal(tableElement) {
-    let values = $(tableElement).find('.value');
+  function calculateSubtotal() {
+    let values = $(table).find('.value');
     let valuesArray = values.toArray();
     let total = 0;
     for (let value of valuesArray) {
@@ -96,7 +95,7 @@ $(document).ready(function() {
     return `\$${total.toFixed(2)}`;
   }
 
-  function createTaxRow(tableElement, tfootElement) {
+  function createTaxRow(tfootElement) {
     let taxTr = $('<tr>');
     tfootElement.append(taxTr);
     taxTr.append($('<td>').text("Tax"));
@@ -104,7 +103,7 @@ $(document).ready(function() {
     taxTr.append(taxTd);
   }
 
-  function calculateTax(tableElement) {
+  function calculateTax() {
     let subtotal = $(table).find('.subtotalamount').text();
     subtotal = parseFloat(subtotal.substring(1));
     let taxAmount = subtotal * taxRate;
@@ -112,7 +111,7 @@ $(document).ready(function() {
     return `\$${taxAmount.toFixed(2)}`;
   }
 
-  function createTotalRow(tableElement, tfootElement) {
+  function createTotalRow(tfootElement) {
     let totalTr = $('<tr>');
     tfootElement.append(totalTr);
     totalTr.append($('<td>').text("Total"));
@@ -120,7 +119,7 @@ $(document).ready(function() {
     totalTr.append(totalTd);
   }
 
-  function calculateTotal(tableElement) {
+  function calculateTotal() {
     let subtotalAmount = $(table).find('.subtotalamount').text();
     subtotalAmount = parseFloat(subtotalAmount.substring(1));
 
@@ -129,16 +128,17 @@ $(document).ready(function() {
 
     let totalAmount = subtotalAmount + taxAmount;
 
-    return totalAmount;
+    return `\$${totalAmount.toFixed(2)}`;
   }
 
   // ---CREATION--- //
 
   createMenuGrid(menuItems, menuColumn);
+
   createTfoot(table);
-  createSubTotalRow(table, $('.tfoot'));
-  createTaxRow(table, $('.tfoot'));
-  createTotalRow(table, $('.tfoot'));
+  createSubTotalRow($('.tfoot'));
+  createTaxRow($('.tfoot'));
+  createTotalRow($('.tfoot'));
 
 
 
@@ -163,4 +163,34 @@ $(document).ready(function() {
       $(totalAmount).text(calculateTotal(table));
     }
   })
+
+  // toggle active on nav bar list item
+  $("nav").click(function(event) {
+    let target = event.target;
+    console.log("You clicked the nav bar");
+  })
+
+  // click function for submit button
+  $(".placeorder").click(function(event) {
+    let target = event.target;
+    console.log("You clicked the submit button")
+
+    let tds = $(tbody).find('td');
+    console.log(tds.length);
+    if (tds.length > 0 && $('#name').val() !== "" && $('#phone_number').val() !== "" && $('#address').val() !== "") {
+      Materialize.toast('Success!', 4000);
+    }
+    else {
+      Materialize.toast('Please complete order details', 4000);
+    }
+
+
+
+
+    // else
+    // Materialize.toast('Please complete order details', 4000);
+  })
+
+
+
 });
