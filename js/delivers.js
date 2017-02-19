@@ -27,8 +27,7 @@ $(document).ready(function() {
     let column = $('<div>').addClass('col s12 m6 l6');
 
     let cardElem = $('<div>').addClass('card')
-      .data('foodName', name)
-      .data('foodPrice', price);
+      .data('food', { name, price });
     column.append(cardElem);
 
     let imageElem = $('<div>').addClass('card-image')
@@ -117,11 +116,9 @@ $(document).ready(function() {
   $(".order").click(function(event) {
     let target = event.target;
     if (target.className === "addtoorder") {
-      let card = $(target).parents('.card');
-      let foodName = card.data('foodName');
-      let foodPrice = card.data('foodPrice');
+      let food = $(target).parents('.card').data('food');
 
-      createOrderItem(foodName, foodPrice);
+      createOrderItem(food.name, food.price);
 
       let subtotal = calculateSubtotal();
       let tax = calculateTax(subtotal);
@@ -135,11 +132,21 @@ $(document).ready(function() {
   $(".placeorder").click(function(event) {
     let target = event.target;
     let orderItems = $('.order-item');
-    if (orderItems.length > 0 && $('#name').val() !== "" && $('#phone_number').val() !== "" && $('#address').val() !== "") {
-      Materialize.toast('Success!', 4000);
+
+    if (orderItems.length === 0) {
+      Materialize.toast('Your order is empty', 4000);
+    }
+    else if ($('#name').val().trim() === "") {
+      Materialize.toast('Please enter your name', 4000)
+    }
+    else if ($('#phone_number').val().trim() === "") {
+      Materialize.toast('Please enter your phone number', 4000);
+    }
+    else if ($('#address').val().trim() === "") {
+      Materialize.toast('Please enter your address', 4000);
     }
     else {
-      Materialize.toast('Please complete order details', 4000);
+      Materialize.toast('Success!', 4000);
     }
   })
 });
