@@ -26,25 +26,26 @@ $(document).ready(function() {
   }
 
   // create a single menu card
-  function createFoodCard(foodName, foodPrice, foodImageURL) {
+  function createFoodCard(name, price, imageURL) {
     let column = $('<div>').addClass('col s12 m6 l6');
 
-    let card = $('<div>').addClass('card').data('foodName', foodName).data('foodPrice', foodPrice);
-    column.append(card);
+    let cardElem = $('<div>').addClass('card')
+      .data('foodName', name)
+      .data('foodPrice', price);
+    column.append(cardElem);
 
-    let cardImage = $('<div>').addClass('card-image');
-    card.append(cardImage);
+    let imageElem = $('<div>').addClass('card-image')
+      .append($('<img>').attr('src', imageURL));
+    cardElem.append(imageElem);
 
-    cardImage.append($(`<img src=${foodImageURL}>`));
-    let cardContent = $('<div>').addClass('card-content');
-    card.append(cardContent);
+    let contentElem = $('<div>').addClass('card-content')
+      .append($('<p>').text(name))
+      .append($('<p>').text(toDollaDolla(price)));
+    cardElem.append(contentElem);
 
-    cardContent.append($('<p>').addClass('foodname').text(foodName));
-    cardContent.append($('<p>').addClass('foodprice').text(`\$${foodPrice}`));
-
-    let cardAction = $('<div class="card-action">');
-    card.append(cardAction);
-    cardAction.append($('<a>').addClass("addtoorder").text("ADD TO ORDER"));
+    let actionElem = $('<div>').addClass('card-action')
+      .append($('<a>').addClass("addtoorder").text("ADD TO ORDER"));
+    cardElem.append(actionElem);
 
     return column[0];
   }
