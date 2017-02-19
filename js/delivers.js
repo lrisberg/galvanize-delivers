@@ -76,28 +76,11 @@ $(document).ready(function() {
     table.append(tfoot);
   }
 
-  function createSubTotalRow(tfootElement) {
-    let subTotalTr = $('<tr>');
-    tfootElement.append(subTotalTr);
-    subTotalTr.append($('<td>').text("Subtotal"));
-    let subTotalTd = $('<td>').addClass('subtotalamount').text('$0');
-    subTotalTr.append(subTotalTd);
-  }
-
-  function createTaxRow(tfootElement) {
-    let taxTr = $('<tr>');
-    tfootElement.append(taxTr);
-    taxTr.append($('<td>').text("Tax"));
-    let taxTd = $('<td>').addClass('taxamount').text('$0');
-    taxTr.append(taxTd);
-  }
-
-  function createTotalRow(tfootElement) {
-    let totalTr = $('<tr>');
-    tfootElement.append(totalTr);
-    totalTr.append($('<td>').text("Total"));
-    let totalTd = $('<td>').addClass('totalamount').text('$0');
-    totalTr.append(totalTd);
+  function createTfootRow(rowName, rowClass) {
+    let tr = $('<tr>')
+      .append($('<td>').text(rowName))
+      .append($('<td>').addClass(rowClass).text('$0'));
+    $('.tfoot').append(tr);
   }
 
   function calculateSubtotal() {
@@ -138,9 +121,9 @@ $(document).ready(function() {
   createMenuGrid(menuItems, menuColumn);
 
   createTfoot(table);
-  createSubTotalRow($('.tfoot'));
-  createTaxRow($('.tfoot'));
-  createTotalRow($('.tfoot'));
+  createTfootRow('Subtotal', 'subtotalamount');
+  createTfootRow('Tax', 'taxamount');
+  createTfootRow('Total', 'totalamount');
 
   // ---EVENTS--- //
 
