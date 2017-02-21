@@ -23,7 +23,6 @@ $(document).ready(function() {
     return `\$${number.toFixed(2)}`;
   }
 
-  // create a single menu card
   function createFoodCard(name, price, imageURL) {
     let column = $('<div>').addClass('col s12 m6 l6');
 
@@ -114,6 +113,7 @@ $(document).ready(function() {
 
   // ---EVENTS--- //
 
+  // click adds item to order table and updates totals
   $(".order").click(function(event) {
     let target = event.target;
     if (target.className === "addtoorder") {
@@ -129,7 +129,7 @@ $(document).ready(function() {
     }
   })
 
-  // click function for submit button
+  // click submit button creates toasts according to filled-out fields
   $(".placeorder").click(function(event) {
     let target = event.target;
     let orderItems = $('.order-item');
